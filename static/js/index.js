@@ -146,14 +146,14 @@ async function filter() {
       ? record.etiquetas.map((t) => t.name).join(", ")
       : "";
     table.innerHTML += `
-        <tr>
+        <tr  >
             <td>${record.tema}</td>
             <td>${tags}</td>
             <td><button class="detalles_btn" data-id="${record._id}">detalles</button>
             <button class="vote_btn" data-id="${record._id}">vote</button>
             <button class="comment_btn" data-id="${record._id}">Add a comment</button>
             <input class="comment_input" data-id="${record._id}" style="display:none" placeholder="add a comment">
-            <button id="send" style="display:none">send</button>
+            <button class="send" data-id="${record._id}" style="display:none">send</button>
             </td>
         </tr>
         `;
@@ -185,9 +185,17 @@ async function filter() {
 }
 async function addComment(id, input) {
   const field = document.querySelector(`.comment_input[data-id="${id}"]`);
-  field.style.display = "block";
-  document.getElementById("send").style.display = "block"
-  document.getElementById("send").addEventListener("click", async () => {
+  const sendBtn = document.querySelector(`.send[data-id="${id}"]`);
+
+  if (field.style.display === "block") {
+    field.style.display = "none";
+    sendBtn.style.display = "none";
+  } else {
+    field.style.display = "block";
+    sendBtn.style.display = "block";
+  }
+
+  sendBtn.addEventListener("click", async () => {
     const input = field.value;
     const response = await fetch("http://localhost:5000/api/addComment", {
       method: "POST",
@@ -198,8 +206,10 @@ async function addComment(id, input) {
     if (!response.ok) {
       throw new Error("buu no anda");
     }
-    window.alert("comment saved")
-    field.value="";
+    window.alert("comment saved");
+    field.value = "";
+    field.style.display = "none";
+    sendBtn.style.display = "none";
   });
 }
 // vista de los detalles de los links

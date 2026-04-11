@@ -14,9 +14,9 @@
   --line:        rgba(255,255,255,0.06);
   --line-mid:    rgba(255,255,255,0.12);
   --line-bright: rgba(255,255,255,0.22);
-  --text:        #e8eaf2;
-  --text-2:      #8b90a8;
-  --text-3:      #4e5368;
+  --text:        #fbfbfb;
+  --text-2:      #ffffff;
+  --text-3:      #cbc8c8;
   --accent:      #4f8ef7;
   --accent-dim:  rgba(79,142,247,0.12);
   --accent-glow: rgba(79,142,247,0.25);
@@ -278,7 +278,7 @@ button.comment_btn:hover {
   background: var(--bg-2);
 }
 
-button#send {
+button.send {
   background: var(--green-dim);
   color: var(--green);
   border: 1px solid var(--green);
@@ -288,7 +288,7 @@ button#send {
   margin-top: 0.5rem;
 }
 
-button#send:hover {
+button.send:hover {
   background: var(--green);
   color: #08090c;
 }
@@ -315,7 +315,23 @@ input.comment_input {
   font-size: 0.85rem;
   background: var(--bg-3);
 }
+.acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
 
+.acciones-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+input.comment_input {
+  margin-top: 0;
+  width: 100%;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -327,6 +343,10 @@ table {
 }
 
 thead tr { border-bottom: 1px solid var(--line-mid); }
+
+th, td {
+  border: 1px solid var(--line); /* this is what creates visible lines */
+}
 
 th {
   font-family: 'Space Mono', monospace;
