@@ -1,5 +1,4 @@
-// vista principal de navegacion
-
+// funcion para inyectar elementos de vista principal
 function navLinkView() {
 document.getElementById("app").innerHTML = `
   <div class="form-group">
@@ -33,6 +32,7 @@ document.getElementById("app").innerHTML = `
 
   </div>
 `;
+// event listeners para las acciones
   const tag = document.getElementById("tags_input");
   tag.addEventListener("change", filter);
 
@@ -45,8 +45,9 @@ document.getElementById("app").innerHTML = `
   populateSelect();
 }
 
+// llena los campos del select
 async function populateSelect() {
-  const response = await fetch("http://localhost:5000/api/pupulateSelect");
+  const response = await fetch("http://localhost:5000/api/populateSelect");
 
   if (!response.ok) {
     throw new Error("buu no anda");
@@ -74,6 +75,7 @@ async function populateSelect() {
   `;
 }
 
+//obtiene los datos del input y los manda a el addlink endpoint
 async function addLink() {
   const link = document.getElementById("link_input").value;
   const select = document.getElementById("tags_new_link");
@@ -99,6 +101,7 @@ async function addLink() {
   select.selectedIndex = -1;
 }
 
+//obtiene los datos del input y los manda a el addtag endpoint
 async function addTag() {
   const tag = document.getElementById("new_tag_input").value;
   if (!tag) {
@@ -119,7 +122,7 @@ async function addTag() {
   select.selectedIndex = -1;
 }
 
-// filtro por etiquetas
+// filtro de registros por etiquetas y los muestra
 async function filter() {
   const tag = document.getElementById("tags_input").value;
   const response = await fetch("http://localhost:5000/api/filter", {
@@ -158,6 +161,7 @@ async function filter() {
         </tr>
         `;
   });
+  // event listeners para las acciones
   const detail = document.getElementById("data");
   detail.addEventListener("click", (e) => {
     if (e.target.classList.contains("vote_btn")) {
@@ -183,6 +187,7 @@ async function filter() {
     }
   });
 }
+// //obtiene los datos del input y los manda a el addcomment endpoint
 async function addComment(id, input) {
   const field = document.querySelector(`.comment_input[data-id="${id}"]`);
   const sendBtn = document.querySelector(`.send[data-id="${id}"]`);
@@ -212,7 +217,7 @@ async function addComment(id, input) {
     sendBtn.style.display = "none";
   });
 }
-// vista de los detalles de los links
+// inyecta la vista de los detalles de los registros
 async function detalleView(id) {
   const response = await fetch("http://localhost:5000/api/details", {
     method: "POST",
@@ -263,7 +268,7 @@ async function detalleView(id) {
     }
   });
 }
-
+//llama al addvote endpoint 
 async function addVote(id) {
   const response = await fetch("http://localhost:5000/api/addVote", {
     method: "POST",
